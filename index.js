@@ -2,8 +2,9 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const fs = require('fs');
-const MOVIES_PATH = `${__dirname}/public/movies`; /*'C:\\movies'*/
+// const MOVIES_PATH = `${__dirname}/public/movies`; /*'C:\\movies'*/
 const PAGINATION_STEP = 12;
+const MOVIES_PATH = path.join(__dirname, 'public', 'movies');
 
 let mainWindow;
 let categories;
@@ -31,30 +32,12 @@ function createWindow() {
 
   // Отображаем средства разработчика.
   mainWindow.webContents.openDevTools();
+
+  // enable garbage collector
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
 }
-
-ipcMain.on('getCategories', () => {
-  fs.readdir(MOVIES_PATH, function (err, items) {
-    categories = items;
-    mainWindow.webContents.send('categories', categories);
-  });
-});
-
-ipcMain.on('getMovies', (event, { category_id, page }) => {
-  const CATEGORY_FOLDER = categories[category_id];
-  const FOLDER_PATH = isDev
-    ? `/movies/${CATEGORY_FOLDER}`
-    : `file://${MOVIES_PATH}/${CATEGORY_FOLDER}`;
-  const PATH = `${MOVIES_PATH}/${CATEGORY_FOLDER}/image`;
-  fs.readdir(PATH, function (err, items) {
-    const length = items ? items.length : 0;
-    const maxPage = Math.ceil(length / PAGINATION_STEP);
-    const movies = items
-      ? items.slice((page - 1) * PAGINATION_STEP, page * PAGINATION_STEP)
-      : null;
-    mainWindow.webContents.send('movies', { movies, maxPage, FOLDER_PATH });
-  });
-});
 
 app.allowRendererProcessReuse = true;
 
@@ -82,3 +65,34 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. Можно также поместить их в отдельные файлы и применить к ним require.
+
+// ipcMain.on('getCategories', () => {
+//   fs.readdir(MOVIES_PATH, function (err, items) {
+//     categories = items;
+//     mainWindow.webContents.send('categories', categories);
+//   });
+// });
+
+ipcMain.on('categories:get', () => {
+  fs.readdir(MOVIES_PATH, function (err, items) {
+    categories = items;
+    console.log(categories);
+    mainWindow.webContents.send('categories:list', categories);
+  });
+});
+
+// ipcMain.on('getMovies', (event, { category_id, page }) => {
+//   const CATEGORY_FOLDER = categories[category_id];
+//   const FOLDER_PATH = isDev
+//     ? `/movies/${CATEGORY_FOLDER}`
+//     : `file://${MOVIES_PATH}/${CATEGORY_FOLDER}`;
+//   const PATH = `${MOVIES_PATH}/${CATEGORY_FOLDER}/image`;
+//   fs.readdir(PATH, function (err, items) {
+//     const length = items ? items.length : 0;
+//     const maxPage = Math.ceil(length / PAGINATION_STEP);
+//     const movies = items
+//       ? items.slice((page - 1) * PAGINATION_STEP, page * PAGINATION_STEP)
+//       : null;
+//     mainWindow.webContents.send('movies', { movies, maxPage, FOLDER_PATH });
+//   });
+// });

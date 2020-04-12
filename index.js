@@ -66,18 +66,30 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. Можно также поместить их в отдельные файлы и применить к ним require.
 
-// ipcMain.on('getCategories', () => {
-//   fs.readdir(MOVIES_PATH, function (err, items) {
-//     categories = items;
-//     mainWindow.webContents.send('categories', categories);
-//   });
-// });
-
 ipcMain.on('categories:get', () => {
   fs.readdir(MOVIES_PATH, function (err, items) {
     categories = items;
-    console.log(categories);
     mainWindow.webContents.send('categories:list', categories);
+  });
+});
+
+ipcMain.on('movies:get', (event, { categoryId, page }) => {
+  const CATEGORY_FOLDER_NAME = categories[categoryId];
+  const CATEGORY_FOLDER = `/movies/${CATEGORY_FOLDER_NAME}`;
+  const POSTERS_FOLDER = path.join(MOVIES_PATH, CATEGORY_FOLDER_NAME, 'image');
+
+  fs.readdir(POSTERS_FOLDER, function (err, items) {
+    const length = items ? items.length : 0;
+    const maxPage = Math.ceil(length / PAGINATION_STEP);
+    const movies = items
+      ? items.slice((page - 1) * PAGINATION_STEP, page * PAGINATION_STEP)
+      : null;
+    mainWindow.webContents.send('movies:list', {
+      movies,
+      maxPage,
+      CATEGORY_FOLDER,
+    });
+    console.log(movies);
   });
 });
 

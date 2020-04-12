@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { BounceLoader } from 'react-spinners';
 import * as categoryActions from '../actions/category';
 
+const { ipcRenderer } = window.require('electron');
+
 class Category extends Component {
   componentDidMount() {
     this.props.startFetchingCategories();
@@ -27,7 +29,10 @@ class Category extends Component {
           <div key={i}>
             <div
               onClick={() => {
-                alert(item);
+                ipcRenderer.send('movies:get', {
+                  categoryId: i,
+                  page: 1,
+                });
               }}
             >
               {item}

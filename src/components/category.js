@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BounceLoader } from 'react-spinners';
 import * as categoryActions from '../actions/category';
-
-const { ipcRenderer } = window.require('electron');
+import * as movieAction from '../actions/movie';
 
 class Category extends Component {
   componentDidMount() {
@@ -29,10 +28,9 @@ class Category extends Component {
           <div key={i}>
             <div
               onClick={() => {
-                ipcRenderer.send('movies:get', {
-                  categoryId: i,
-                  page: 1,
-                });
+                this.props.selectCategory(i);
+                this.props.startFetchingMovies();
+                this.props.getMovies(i, 1);
               }}
             >
               {item}
@@ -52,4 +50,6 @@ function mapStateToProps({ category }) {
   return category;
 }
 
-export default connect(mapStateToProps, { ...categoryActions })(Category);
+export default connect(mapStateToProps, { ...categoryActions, ...movieAction })(
+  Category
+);

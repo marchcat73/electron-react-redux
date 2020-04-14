@@ -2,7 +2,6 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const fs = require('fs');
-// const MOVIES_PATH = `${__dirname}/public/movies`; /*'C:\\movies'*/
 const PAGINATION_STEP = 12;
 const MOVIES_PATH = path.join(__dirname, 'public', 'movies');
 
@@ -89,22 +88,5 @@ ipcMain.on('movies:get', (event, { categoryId, page }) => {
       maxPage,
       CATEGORY_FOLDER,
     });
-    console.log(movies);
   });
 });
-
-// ipcMain.on('getMovies', (event, { category_id, page }) => {
-//   const CATEGORY_FOLDER = categories[category_id];
-//   const FOLDER_PATH = isDev
-//     ? `/movies/${CATEGORY_FOLDER}`
-//     : `file://${MOVIES_PATH}/${CATEGORY_FOLDER}`;
-//   const PATH = `${MOVIES_PATH}/${CATEGORY_FOLDER}/image`;
-//   fs.readdir(PATH, function (err, items) {
-//     const length = items ? items.length : 0;
-//     const maxPage = Math.ceil(length / PAGINATION_STEP);
-//     const movies = items
-//       ? items.slice((page - 1) * PAGINATION_STEP, page * PAGINATION_STEP)
-//       : null;
-//     mainWindow.webContents.send('movies', { movies, maxPage, FOLDER_PATH });
-//   });
-// });

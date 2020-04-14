@@ -1,8 +1,13 @@
-import { GET_CATEGORIES, START_FETCHING_CATEGORIES } from '../actions/types';
+import {
+  GET_CATEGORIES,
+  START_FETCHING_CATEGORIES,
+  SELECT_CATEGORY,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   loading: true,
   categories: null,
+  selected_category: null,
 };
 
 const categoryReducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +16,8 @@ const categoryReducer = (state = INITIAL_STATE, action) => {
       return { ...state, loading: true };
     case GET_CATEGORIES:
       return { ...state, loading: false, categories: action.payload };
+    case SELECT_CATEGORY:
+      return { ...state, selected_category: action.payload };
     default:
       return state;
   }

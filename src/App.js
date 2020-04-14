@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Category from './components/category';
+import Movie from './components/movie';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -15,6 +16,9 @@ class App extends Component {
       <div>
         <div>
           <Category />
+        </div>
+        <div>
+          <Movie />
         </div>
       </div>
     );

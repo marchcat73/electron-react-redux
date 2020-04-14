@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Category from './components/category';
 import Movie from './components/movie';
 
@@ -12,6 +13,8 @@ class App extends Component {
   }
 
   render() {
+    if (this.props.movie.selectedMovie)
+      return <div>{this.props.movie.selectedMovie}</div>;
     return (
       <div>
         <div>
@@ -25,4 +28,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    movie: state.movie,
+  };
+};
+
+export default connect(mapStateToProps)(App);

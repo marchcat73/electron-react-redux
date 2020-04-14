@@ -45,7 +45,14 @@ class Movie extends Component {
             width="100"
             height="150"
             src={`${this.props.CATEGORY_FOLDER}/image/${item}`}
-            onClick={() => {}}
+            onClick={() => {
+              this.props.selectMovie(
+                `${this.props.CATEGORY_FOLDER}/video/${item.replace(
+                  'jpg',
+                  'mp4'
+                )}`
+              );
+            }}
           />
           <br />
           <span>{item.replace('.jpg', '')}</span>

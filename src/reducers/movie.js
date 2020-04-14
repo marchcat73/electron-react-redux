@@ -1,4 +1,8 @@
-import { GET_MOVIES, START_FETCHING_MOVIES } from '../actions/types';
+import {
+  GET_MOVIES,
+  START_FETCHING_MOVIES,
+  SELECT_MOVIE,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   loading: false,
@@ -6,6 +10,7 @@ const INITIAL_STATE = {
   page: 1,
   maxPage: null,
   CATEGORY_FOLDER: null,
+  selectedMovie: null,
 };
 
 const movieReducer = (state = INITIAL_STATE, action) => {
@@ -21,6 +26,8 @@ const movieReducer = (state = INITIAL_STATE, action) => {
         CATEGORY_FOLDER: action.payload.CATEGORY_FOLDER,
         loading: false,
       };
+    case SELECT_MOVIE:
+      return { ...state, selectedMovie: action.payload };
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import { GET_MOVIES, START_FETCHING_MOVIES } from './types';
+import { GET_MOVIES, START_FETCHING_MOVIES, SELECT_MOVIE } from './types';
 const { ipcRenderer } = window.require('electron');
 
 export const startFetchingMovies = () => {
@@ -16,4 +16,8 @@ export const getMovies = (categoryId, page) => (dispatch) => {
       });
     }
   );
+};
+
+export const selectMovie = (moviePath) => {
+  return { type: SELECT_MOVIE, payload: moviePath };
 };

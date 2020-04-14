@@ -8,7 +8,20 @@ const MOVIES_PATH = path.join(__dirname, 'public', 'movies');
 let mainWindow;
 let categories;
 
-function createWindow() {
+const installExtensions = async () => {
+  const installer = require('electron-devtools-installer');
+  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
+
+  return Promise.all(
+    extensions.map((name) => installer.default(installer[name], forceDownload))
+  ).catch(console.log);
+};
+
+const createWindow = async () => {
+  if (isDev) {
+    await installExtensions();
+  }
   // Создаем окно браузера.
   mainWindow = new BrowserWindow({
     /*skipTaskbar: true*/
@@ -36,7 +49,9 @@ function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-}
+};
+
+// mainWindow.addDevToolsExtension(extensions);
 
 app.allowRendererProcessReuse = true;
 

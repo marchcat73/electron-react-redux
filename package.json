@@ -15,13 +15,15 @@
     "@testing-library/user-event": "^10.0.1",
     "cross-env": "^7.0.2",
     "electron-is-dev": "^1.2.0",
+    "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
     "react-spinners": "^0.8.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "video.js": "^7.7.5"
   },
   "scripts": {
     "react-start": "react-scripts start",

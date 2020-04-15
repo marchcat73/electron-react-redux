@@ -1,4 +1,5 @@
 import {
+  CLOSE_MOVIE,
   GET_MOVIES,
   START_FETCHING_MOVIES,
   SELECT_MOVIE,
@@ -28,6 +29,8 @@ const movieReducer = (state = INITIAL_STATE, action) => {
       };
     case SELECT_MOVIE:
       return { ...state, selectedMovie: action.payload };
+    case CLOSE_MOVIE:
+      return { ...state, selectedMovie: null };
     default:
       return state;
   }

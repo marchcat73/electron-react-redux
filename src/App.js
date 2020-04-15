@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Category from './components/category';
 import Movie from './components/movie';
-
-const { ipcRenderer } = window.require('electron');
+import Player from './components/player';
+import './App.scss';
 
 class App extends Component {
-  state = { msgFromMainProcess: '' };
-
-  onButtonClick() {
-    ipcRenderer.send('categories:get');
-  }
-
   render() {
     if (this.props.movie.selectedMovie)
-      return <div>{this.props.movie.selectedMovie}</div>;
+      return (
+        <div className="app__movie">
+          <Player />
+        </div>
+      );
     return (
       <div>
         <div>

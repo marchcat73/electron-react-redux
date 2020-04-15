@@ -24,6 +24,8 @@ const createWindow = async () => {
   }
   // Создаем окно браузера.
   mainWindow = new BrowserWindow({
+    width: 1024,
+    height: 800,
     /*skipTaskbar: true*/
     webPreferences: {
       nodeIntegration: true,
@@ -43,7 +45,7 @@ const createWindow = async () => {
   // mainWindow.loadURL(startUrl);
 
   // Отображаем средства разработчика.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // enable garbage collector
   mainWindow.on('closed', () => {

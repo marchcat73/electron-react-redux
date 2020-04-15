@@ -13,20 +13,23 @@ class Category extends Component {
   renderCategories() {
     if (this.props.loading)
       return (
-        <div>
+        <div className="col-md-8 col-md-offset-4">
           <BounceLoader />
         </div>
       );
 
     return (
       <div>
-        <div>
-          <h2>Categories</h2>
-          <hr />
+        <div className="col-md-12">
+          <h2 className="categories-head-title">Categories</h2>
+          <hr className="categories-head-title-br" />
         </div>
         {this.props.categories.map((item, i) => (
-          <div key={i}>
+          <div key={i} className="col-md-12">
             <div
+              className={`categories-item ${
+                this.props.selected_category === i && 'categories-item-selected'
+              }`}
               onClick={() => {
                 this.props.selectCategory(i);
                 this.props.startFetchingMovies();

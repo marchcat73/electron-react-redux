@@ -22,8 +22,7 @@
     "react-scripts": "3.4.1",
     "react-spinners": "^0.8.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "video.js": "^7.7.5"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "react-start": "react-scripts start",
@@ -56,6 +55,7 @@
     "electron-devtools-installer": "^3.0.0",
     "prettier": "^2.0.4",
     "redux-devtools-extension": "^2.13.8",
+    "video.js": "^7.7.5",
     "wait-on": "^4.0.2"
   }
 }

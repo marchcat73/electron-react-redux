@@ -6,8 +6,9 @@ import * as movieActions from '../actions/movie';
 class Movie extends Component {
   renderPagination() {
     return (
-      <div>
+      <div className="col-md-12">
         <button
+          className="btn navigation-button pull-left"
           disabled={this.props.page === 1}
           onClick={() => {
             this.props.startFetchingMovies();
@@ -20,6 +21,7 @@ class Movie extends Component {
           BACK
         </button>
         <button
+          className="btn navigation-button pull-right"
           disabled={this.props.page === this.props.maxPage}
           onClick={() => {
             this.props.startFetchingMovies();
@@ -37,8 +39,8 @@ class Movie extends Component {
 
   renderMovieItem(item, i) {
     return (
-      <div key={i}>
-        <div>
+      <div key={i} className="col-md-3">
+        <div className="movie-item">
           <img
             alt="movie"
             key={i}
@@ -55,7 +57,7 @@ class Movie extends Component {
             }}
           />
           <br />
-          <span>{item.replace('.jpg', '')}</span>
+          <span className="movie-title">{item.replace('.jpg', '')}</span>
         </div>
       </div>
     );
@@ -64,13 +66,14 @@ class Movie extends Component {
   renderMovies() {
     if (this.props.loading)
       return (
-        <div>
+        <div className="col-md-2 col-md-offset-5">
           <BounceLoader />
         </div>
       );
     else if (!this.props.movies && this.props.selected_category === null)
-      return <h2>Select a Category</h2>;
-    else if (!this.props.movies) return <h2>No movies</h2>;
+      return <h2 className="movies-head-message">Select a Category</h2>;
+    else if (!this.props.movies)
+      return <h2 className="movies-head-message">No movies</h2>;
     return (
       <div>
         <div>

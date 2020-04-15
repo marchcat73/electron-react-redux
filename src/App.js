@@ -3,22 +3,22 @@ import { connect } from 'react-redux';
 import Category from './components/category';
 import Movie from './components/movie';
 import Player from './components/player';
-import './App.scss';
+import './App.css';
 
 class App extends Component {
   render() {
     if (this.props.movie.selectedMovie)
       return (
-        <div className="app__movie">
+        <div>
           <Player />
         </div>
       );
     return (
-      <div>
-        <div>
+      <div className="App HomeScreen">
+        <div className="col-md-2">
           <Category />
         </div>
-        <div>
+        <div className="col-md-10">
           <Movie />
         </div>
       </div>

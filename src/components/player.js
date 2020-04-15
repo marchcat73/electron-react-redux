@@ -23,7 +23,10 @@ class Player extends Component {
     return (
       <div>
         <VideoPlayer {...videoJsOptions} />
-        <div onClick={() => this.props.closeMovie()}>
+        <div
+          className="movie-close-btn"
+          onClick={() => this.props.closeMovie()}
+        >
           <img src="icons/cancel-circle-01.svg" alt="close" />
         </div>
       </div>

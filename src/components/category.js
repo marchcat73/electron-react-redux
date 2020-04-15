@@ -49,9 +49,9 @@ class Category extends Component {
   }
 }
 
-function mapStateToProps({ category }) {
+const mapStateToProps = ({ category }) => {
   return category;
-}
+};
 
 export default connect(mapStateToProps, { ...categoryActions, ...movieAction })(
   Category

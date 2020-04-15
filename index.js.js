@@ -33,6 +33,7 @@ const createWindow = async () => {
   });
 
   // mainWindow.setFullScreen(true);
+  mainWindow.setMenu(null);
 
   // and load the index.html of the app.
   mainWindow.loadURL(
@@ -45,7 +46,7 @@ const createWindow = async () => {
   // mainWindow.loadURL(startUrl);
 
   // Отображаем средства разработчика.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   // enable garbage collector
   mainWindow.on('closed', () => {
